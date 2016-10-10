@@ -1,28 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
 
 namespace TanyaOne.ViewModel
 {
-    public class Record
-    {
-        public string Name { get; set; }
-        public int  Value { get; set; }
-    }
 
     public class MainPageViewModel
     {
+        public ObservableCollection<Button> Tiles { get; set; }
+
         public MainPageViewModel()
         {
-            ChartData = new List<Record>
+            
+            Tiles = new ObservableCollection<Button>()
             {
-                new Record() {Name = "alma", Value = 20},
-                new Record() {Name = "alma", Value = 22},
-                new Record() {Name = "alma", Value = 23}
+                new Button() {Content = "B1"},
+                new Button() {Content = "B2"},
+                new Button() {Content = "B3"},
+                new Button() {Content = "B4"},
+                new Button() {Content = "B5"},
             };
         }
-
-        public List<Record> ChartData { get; set; }
-
-       
-
     }
 }

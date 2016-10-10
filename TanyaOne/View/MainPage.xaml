@@ -5,6 +5,7 @@
     xmlns:local="using:TanyaOne"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d"
     xmlns:viewModel="using:TanyaOne.ViewModel" 
     x:Name="Page"
@@ -41,14 +42,26 @@
                         <Setter Target="MGridView.Width" Value="300"></Setter>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="GridViewNoPanelState">
+                <VisualState x:Name="GridView2NoPanelState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MGridView.Width" Value="500"></Setter>
+                        <Setter Target="MapColumnDefinition.Width" Value="0"></Setter>
+                        <Setter Target="PanelColumnDefinition.Width" Value="*"></Setter>
+                        <Setter Target="MapControl.Visibility" Value="Collapsed"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="GridView1NoPanelState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MGridView.Width" Value="300"></Setter>
+                        <Setter Target="MGridView.Width" Value="200"></Setter>
                         <Setter Target="MapColumnDefinition.Width" Value="0"></Setter>
                         <Setter Target="PanelColumnDefinition.Width" Value="*"></Setter>
+                        <Setter Target="MapControl.Visibility" Value="Collapsed"></Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -57,10 +70,10 @@
             <ColumnDefinition Width="*" x:Name="MapColumnDefinition"/>
             <ColumnDefinition Width="Auto" x:Name="PanelColumnDefinition" />
         </Grid.ColumnDefinitions>
-        <Rectangle Fill="Wheat" Width="Auto" Grid.Column="0"/>
+        <maps:MapControl x:Name="MapControl" Grid.Column="0" />
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Pina"
-                Click="Nyomas" Grid.Column="0"/>
-        <GridView x:Name="MGridView" Grid.Column="1" Width="490" >
+                 Grid.Column="0"/>
+        <GridView x:Name="MGridView" Grid.Column="1" Width="490" Background="Transparent">
         
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -78,7 +91,8 @@
             </GridView.ItemsPanel>
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
-            <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
+            <Rectangle Fill="Red" Width="200" Height="100" Margin="20" x:Name="Red"/>
+            <Button Background="Green" />
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
         </GridView>
