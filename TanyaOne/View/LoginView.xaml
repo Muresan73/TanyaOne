@@ -5,13 +5,18 @@
     xmlns:local="using:TanyaOne.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:viewModel="using:TanyaOne.ViewModel" 
+    >
+    <Page.DataContext>
+        <viewModel:LoginViewModel/>
+    </Page.DataContext>
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock FontSize="36" Width="250" TextAlignment="Center" FontWeight="Bold" >Login</TextBlock>
-        <TextBox  PlaceholderText="User Name" Margin="0,20,0,0"/>
-        <PasswordBox  PlaceholderText="Password" Margin="0,20,0,20"/>
-        <Button HorizontalAlignment="Center" Width="100" Background="DarkTurquoise" Click="amper">
+        <TextBox  PlaceholderText="User Name" Text="{x:Bind LoginViewModelInstance.Username ,Mode=TwoWay}" Margin="0,20,0,0"/>
+        <PasswordBox  PlaceholderText="Password" Margin="0,20,0,20" Password="{x:Bind LoginViewModelInstance.Password ,Mode=TwoWay}"/>
+        <Button HorizontalAlignment="Center" Width="100" Background="DarkTurquoise" Click="{x:Bind LoginViewModelInstance.LoginButtonClick}">
             <TextBlock FontSize="15" TextAlignment="Center" 
                        Foreground="AliceBlue" FontWeight="Bold" Text="Login"/>
         </Button>

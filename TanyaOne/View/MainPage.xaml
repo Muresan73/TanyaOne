@@ -12,7 +12,6 @@
     >
     <Page.Resources>
         <viewModel:MainPageViewModel x:Key="MainViewModel"/>
-        
     </Page.Resources>
     
     <Grid DataContext="{StaticResource MainViewModel}" >

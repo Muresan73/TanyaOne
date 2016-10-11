@@ -105,13 +105,9 @@ namespace TanyaOne.ViewModel
             var tokenJson = JsonConvert.DeserializeObject<TokenJson>(httpResponseBody);
 
             SaveTokenWithUser(email,tokenJson.token);
-
-            var dialog = new MessageDialog(httpResponseBody);
-            await dialog.ShowAsync();
         }
 
         #endregion
 
     }
-    public class TokenJson {public string token { get; set; }}
 }

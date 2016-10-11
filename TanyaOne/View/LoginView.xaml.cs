@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Newtonsoft.Json;
+using TanyaOne.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +29,9 @@ namespace TanyaOne.View
     /// </summary>
     public sealed partial class LoginView : Page
     {
+        public LoginViewModel LoginViewModelInstance => (LoginViewModel) this.DataContext;
+
+
         public LoginView()
         {
             this.InitializeComponent();
