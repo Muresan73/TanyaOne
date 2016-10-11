@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,15 +35,14 @@ namespace TanyaOne.View
 
         private async void amper(object sender, RoutedEventArgs e)
         {
-            Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
+            HttpClient httpClient = new HttpClient();
             Uri requestUri = new Uri("http://winedata.mindit.hu/ws/auth");
-            Windows.Web.Http.HttpResponseMessage httpResponse = new Windows.Web.Http.HttpResponseMessage();
-            string httpResponseBody = "";
+            string httpResponseBody;
 
             try
             {
                 //Send the GET request
-                httpResponse = await httpClient.PostAsync(requestUri,new HttpStringContent("{\"email\":\"test@mindit.hu\",\"password\":\"Qwert1986\"}",Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json"));
+                var httpResponse = await httpClient.PostAsync(requestUri,new HttpStringContent("{\"email\":\"test@mindit.hu\",\"password\":\"Qwert1986\"}",Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json"));
                 httpResponse.EnsureSuccessStatusCode();
                 httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
             }
@@ -52,6 +52,11 @@ namespace TanyaOne.View
             }
             var dialog = new MessageDialog(httpResponseBody);
             await dialog.ShowAsync();
+            var tokenJson = JsonConvert.DeserializeObject<ViewModel.TokenJson>(httpResponseBody);
+            dialog = new MessageDialog(tokenJson.token);
+            await dialog.ShowAsync();
         }
+
     }
+    public class TokenJson { public string token { get; set; } }
 }
