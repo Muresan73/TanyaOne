@@ -31,36 +31,10 @@ namespace TanyaOne.View
     {
         public LoginViewModel LoginViewModelInstance => (LoginViewModel) this.DataContext;
 
-
         public LoginView()
         {
             this.InitializeComponent();
         }
 
-        private async void amper(object sender, RoutedEventArgs e)
-        {
-            HttpClient httpClient = new HttpClient();
-            Uri requestUri = new Uri("http://winedata.mindit.hu/ws/auth");
-            string httpResponseBody;
-
-            try
-            {
-                //Send the GET request
-                var httpResponse = await httpClient.PostAsync(requestUri,new HttpStringContent("{\"email\":\"test@mindit.hu\",\"password\":\"Qwert1986\"}",Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json"));
-                httpResponse.EnsureSuccessStatusCode();
-                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-            }
-            catch (Exception ex)
-            {
-                httpResponseBody = "Error: " + ex.HResult.ToString("X") + " Message: " + ex.Message;
-            }
-            var dialog = new MessageDialog(httpResponseBody);
-            await dialog.ShowAsync();
-            var tokenJson = JsonConvert.DeserializeObject<ViewModel.TokenJson>(httpResponseBody);
-            dialog = new MessageDialog(tokenJson.token);
-            await dialog.ShowAsync();
-        }
-
     }
-    public class TokenJson { public string token { get; set; } }
 }

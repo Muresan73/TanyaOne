@@ -71,7 +71,7 @@
         </Grid.ColumnDefinitions>
         <maps:MapControl x:Name="MapControl" Grid.Column="0" />
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Pina"
-                 Grid.Column="0"/>
+                 Grid.Column="0" Click="{x:Bind DB.DownloadFieldList}"/>
         <GridView x:Name="MGridView" Grid.Column="1" Width="490" Background="Transparent">
         
             <GridView.ItemsPanel>
