@@ -19,10 +19,9 @@ namespace TanyaOne.ViewModel
             Password = "";
         }
 
-        public async void LoginButtonClick()
+        public void LoginButtonClick()
         {
-            var dialog = new MessageDialog(Username+" : "+Password);
-            await dialog.ShowAsync();
+            App.MainDbViewModel.SaveTokenFromServer(Username, Password);
         }
     }
 }

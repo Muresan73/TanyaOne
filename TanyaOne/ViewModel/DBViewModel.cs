@@ -11,8 +11,7 @@ using TanyaOne.Model;
 
 namespace TanyaOne.ViewModel
 {
-
-    class DBViewModel
+    public class DBViewModel
     {
         private WineDataModel WineData;
 
