@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using TanyaOne.Services;
 using TanyaOne.View;
 using TanyaOne.ViewModel;
 
@@ -72,7 +73,7 @@ namespace TanyaOne
                     // configuring the new page by passing required information as a navigation
                     // parameter
                     rootFrame.Navigate(
-                        MainDbViewModel.GetLastLoggedInUser() == null ? typeof(View.LoginView) : typeof(View.MainPage),
+                        SecurityService.GetLastLoggedInUser() == null ? typeof(View.LoginView) : typeof(View.MainPage),
                         e.Arguments);
                 }
                 // Ensure the current window is active

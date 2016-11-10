@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using TanyaOne.View;
 
 namespace TanyaOne.ViewModel
 {
@@ -19,9 +22,12 @@ namespace TanyaOne.ViewModel
             Password = "";
         }
 
-        public void LoginButtonClick()
+        public async void LoginButtonClick()
         {
-            App.MainDbViewModel.SaveTokenFromServer(Username, Password);
+            if(await App.MainDbViewModel.LoginWithCreditianals(Username, Password))
+            {
+                ((Frame)Window.Current.Content).Navigate(typeof(MainPage));
+            }
         }
     }
 }

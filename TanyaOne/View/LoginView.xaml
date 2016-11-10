@@ -20,5 +20,6 @@
             <TextBlock FontSize="15" TextAlignment="Center" 
                        Foreground="AliceBlue" FontWeight="Bold" Text="Login"/>
         </Button>
+        <TextBlock x:Name="Errorbox" Visibility="Collapsed"/>
     </StackPanel>
 </Page>

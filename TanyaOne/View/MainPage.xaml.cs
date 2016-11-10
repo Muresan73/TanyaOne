@@ -16,11 +16,14 @@ namespace TanyaOne.View
     public sealed partial class MainPage : Page
     {
         public DBViewModel DB { get { return App.MainDbViewModel; } }
+        public MainPageViewModel MPageViewModel;
 
         public MainPage()
         {
             this.InitializeComponent();
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(200, 200));
+            MPageViewModel = new MainPageViewModel();
+            this.DataContext = MPageViewModel;
         }
 
 

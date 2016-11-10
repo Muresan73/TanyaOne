@@ -7,14 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d"
-    xmlns:viewModel="using:TanyaOne.ViewModel" 
     x:Name="Page"
+    xmlns:model="using:TanyaOne.Model"
     >
-    <Page.Resources>
-        <viewModel:MainPageViewModel x:Key="MainViewModel"/>
-    </Page.Resources>
-    
-    <Grid DataContext="{StaticResource MainViewModel}" >
+    <Grid  >
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="GridViewWidth" >
                 <VisualState x:Name="GridView3PanelState">
@@ -70,10 +66,19 @@
             <ColumnDefinition Width="Auto" x:Name="PanelColumnDefinition" />
         </Grid.ColumnDefinitions>
         <maps:MapControl x:Name="MapControl" Grid.Column="0" />
+        <ComboBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" 
+                 SelectedItem="{x:Bind MPageViewModel.SelectedField, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.Fields,Mode=OneWay}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="model:FieldData">
+                    <TextBlock Text="{x:Bind name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Pina"
-                 Grid.Column="0" Click="{x:Bind DB.DownloadFieldList}"/>
+                 Grid.Column="0" Click="{x:Bind MPageViewModel.showselect}"/>
+        <!--Click="{x:Bind DB.DownloadFieldList}"-->
         <GridView x:Name="MGridView" Grid.Column="1" Width="490" Background="Transparent">
-        
+
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VariableSizedWrapGrid MaximumRowsOrColumns="3" 
@@ -85,7 +90,7 @@
                                 <RepositionThemeTransition/>
                             </TransitionCollection>
                         </VariableSizedWrapGrid.ChildrenTransitions>
-                        </VariableSizedWrapGrid>
+                    </VariableSizedWrapGrid>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
@@ -95,5 +100,9 @@
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
         </GridView>
+        <CommandBar Grid.Column="1" VerticalAlignment="Bottom" ClosedDisplayMode="Minimal">
+            <AppBarButton Icon="BlockContact" Label="Log Out"/>
+        </CommandBar>
     </Grid>
+
 </Page>

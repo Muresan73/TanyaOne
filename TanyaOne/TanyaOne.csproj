@@ -95,7 +95,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\FieldListData.cs" />
     <Compile Include="Model\WineDataModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\SecurityService.cs" />
+    <Compile Include="Services\WineServerDataService.cs" />
     <Compile Include="ViewModel\DBViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Model\TokenJson.cs" />
