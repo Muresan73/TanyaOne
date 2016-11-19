@@ -96,6 +96,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\FieldListData.cs" />
+    <Compile Include="Model\SummaryData.cs" />
+    <Compile Include="Model\TileData.cs" />
     <Compile Include="Model\WineDataModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\SecurityService.cs" />

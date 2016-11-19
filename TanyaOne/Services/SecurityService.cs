@@ -20,11 +20,13 @@ namespace TanyaOne.Services
             vault.Add(credential);
         }
 
-        public static void DeleteUsersToken(string username)
+        public static void DeleteLastLoggedInUser()
         {
             var vault = new PasswordVault();
+            
             try
             {
+                var username = vault.FindAllByResource(WineToken).FirstOrDefault().UserName;
                 // Removes the credential from the password vault.
                 vault.Remove(vault.Retrieve(WineToken, username));
             }

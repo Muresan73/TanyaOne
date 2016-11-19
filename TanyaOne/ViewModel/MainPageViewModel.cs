@@ -5,9 +5,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TanyaOne.Annotations;
 using TanyaOne.Model;
+using TanyaOne.View;
 
 namespace TanyaOne.ViewModel
 {
@@ -15,7 +17,7 @@ namespace TanyaOne.ViewModel
     public class MainPageViewModel:INotifyPropertyChanged
     {
         public ObservableCollection<Button> Tiles { get; set; }
-        public Object SelectedField { get; set; }
+        public object SelectedField { get; set; }
         public ObservableCollection<FieldData> Fields { get; set; }
 
         public MainPageViewModel()
@@ -35,6 +37,17 @@ namespace TanyaOne.ViewModel
         private async void LoadData()
         {
             var fieldsList = await App.MainDbViewModel.GetFieldListAsync();
+            
+
+            if (fieldsList == default(FieldData[]))
+            {
+                if (!App.MainDbViewModel.IsLoggedIn) UserLogOut();
+                else
+                {
+                    var dialog = new MessageDialog("Can not retrieve data.\nTry again later");
+                    await dialog.ShowAsync();
+                }
+            }
             Fields = new ObservableCollection<FieldData>(fieldsList);
             //var dialog = new MessageDialog(Fields[0].name);
             //await dialog.ShowAsync();
@@ -44,6 +57,13 @@ namespace TanyaOne.ViewModel
             OnPropertyChanged("SelectedField");
 
         }
+
+        public async void UserLogOut()
+        {
+            await App.MainDbViewModel.LogOut();
+            ((Frame)Window.Current.Content).Navigate(typeof(LoginView));
+        }
+        
 
         public async void showselect()
         {

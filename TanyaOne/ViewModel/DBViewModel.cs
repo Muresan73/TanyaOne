@@ -15,6 +15,7 @@ namespace TanyaOne.ViewModel
 {
     public class DBViewModel
     {
+        public bool IsLoggedIn => SecurityService.GetLastLoggedInUser() != null;
         private WineDataModel WineData;
         private readonly WineServerDataService _wineServerDataService;
 
@@ -30,6 +31,31 @@ namespace TanyaOne.ViewModel
             var result = await _wineServerDataService.GetRequestAsync<FieldData[]>("http://winedata.mindit.hu/ws/field/list");
             if (result == default(FieldData[]) )
             {
+                if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
+                var dialog = new MessageDialog(_wineServerDataService.LastError);
+                await dialog.ShowAsync();
+            }
+            return result;
+        }
+
+        public async Task<SummaryData> GetSummaryAsync()
+        {
+            var result = await _wineServerDataService.GetRequestAsync<SummaryData>("http://winedata.mindit.hu/ws/tileData/summary");
+            if (result == default(SummaryData))
+            {
+                if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
+                var dialog = new MessageDialog(_wineServerDataService.LastError);
+                await dialog.ShowAsync();
+            }
+            return result;
+        }
+
+        public async Task<Sensor[]> GetTileDataAsync(int sonsorId)
+        {
+            var result = await _wineServerDataService.GetRequestAsync<Sensor[]>("http://winedata.mindit.hu/ws/tileData/"+sonsorId);
+            if (result == default(Sensor[]))
+            {
+                if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
                 var dialog = new MessageDialog(_wineServerDataService.LastError);
                 await dialog.ShowAsync();
             }
@@ -47,12 +73,18 @@ namespace TanyaOne.ViewModel
             {
                 var dialog = new MessageDialog(_wineServerDataService.LastError);
                 await dialog.ShowAsync();
+                
                 return false;
             }else
             SecurityService.SaveTokenWithUser(username, result.token);
             return true;
+        }
 
-
+        public async Task LogOut()
+        {
+            await _wineServerDataService.PostRequestAsync<TokenJson>("http://winedata.mindit.hu/ws/logout",
+                    new Dictionary<string, string>(), true);
+            SecurityService.DeleteLastLoggedInUser();
         }
     }
 }

@@ -101,7 +101,7 @@
             <Rectangle Fill="Yellow" Width="200" Height="100" Margin="20"/>
         </GridView>
         <CommandBar Grid.Column="1" VerticalAlignment="Bottom" ClosedDisplayMode="Minimal">
-            <AppBarButton Icon="BlockContact" Label="Log Out"/>
+            <AppBarButton Icon="BlockContact" Label="Log Out" Click="{x:Bind MPageViewModel.UserLogOut}"/>
         </CommandBar>
     </Grid>
 

@@ -15,7 +15,7 @@ namespace TanyaOne.View
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public DBViewModel DB { get { return App.MainDbViewModel; } }
+        public DBViewModel DB => App.MainDbViewModel;
         public MainPageViewModel MPageViewModel;
 
         public MainPage()
