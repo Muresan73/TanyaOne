@@ -62,6 +62,18 @@ namespace TanyaOne.ViewModel
             return result;
         }
 
+        public async Task<ChartData> GetChartDataAsync(int sonsorId)
+        {
+            var result = await _wineServerDataService.GetRequestAsync<ChartData>("http://winedata.mindit.hu/ws/chartData" + sonsorId);
+            if (result == default(ChartData))
+            {
+                if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
+                var dialog = new MessageDialog(_wineServerDataService.LastError);
+                await dialog.ShowAsync();
+            }
+            return result;
+        }
+
         public async Task<bool> LoginWithCreditianals(string username, string password)
         {
             //var status = await wineServerDataService.SaveTokenFromServer(username, password);

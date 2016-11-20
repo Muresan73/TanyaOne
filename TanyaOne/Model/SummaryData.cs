@@ -9,11 +9,11 @@ namespace TanyaOne.Model
 
     public class SummaryData
     {
-        public Column[] columns { get; set; }
-        public Row[] rows { get; set; }
+        public SumColumn[] columns { get; set; }
+        public SumRow[] rows { get; set; }
     }
 
-    public class Column
+    public class SumColumn
     {
         public string title { get; set; }
         public string subTitle { get; set; }
@@ -22,15 +22,15 @@ namespace TanyaOne.Model
         public int id { get; set; }
     }
 
-    public class Row
+    public class SumRow
     {
         public string title { get; set; }
         public string subTitle { get; set; }
         public int locationId { get; set; }
-        public Datum[] data { get; set; }
+        public SumDatum[] data { get; set; }
     }
 
-    public class Datum
+    public class SumDatum
     {
         public int id { get; set; }
         public string value { get; set; }

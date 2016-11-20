@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -16,30 +17,24 @@ namespace TanyaOne.ViewModel
 
     public class MainPageViewModel:INotifyPropertyChanged
     {
-        public ObservableCollection<Button> Tiles { get; set; }
         public object SelectedField { get; set; }
         public ObservableCollection<FieldData> Fields { get; set; }
+        public ObservableCollection<SumRow> SummaryRowDatas { get; set; }
+        public ObservableCollection<Sensor> Tiles { get; set; }
 
         public MainPageViewModel()
         {
+            Tiles = new ObservableCollection<Sensor>() {new Sensor() {displayName = "krumpli",displayPrimaryValue = "110",design = new Design() {icon = "kolbász",color = "red"} } };
             LoadData();
-            Fields = new ObservableCollection<FieldData>();
-            Tiles = new ObservableCollection<Button>()
-            {
-                new Button() {Content = "B1"},
-                new Button() {Content = "B2"},
-                new Button() {Content = "B3"},
-                new Button() {Content = "B4"},
-                new Button() {Content = "B5"},
-            };
         }
 
         private async void LoadData()
         {
             var fieldsList = await App.MainDbViewModel.GetFieldListAsync();
-            
+            var summarydata = await App.MainDbViewModel.GetSummaryAsync();
 
-            if (fieldsList == default(FieldData[]))
+
+            if (fieldsList == default(FieldData[]) || summarydata == default(SummaryData))
             {
                 if (!App.MainDbViewModel.IsLoggedIn) UserLogOut();
                 else
@@ -48,14 +43,34 @@ namespace TanyaOne.ViewModel
                     await dialog.ShowAsync();
                 }
             }
-            Fields = new ObservableCollection<FieldData>(fieldsList);
-            //var dialog = new MessageDialog(Fields[0].name);
-            //await dialog.ShowAsync();
-            if (SelectedField == null)
-                SelectedField = Fields[0];
-            OnPropertyChanged("Fields");
-            OnPropertyChanged("SelectedField");
+            else
+            {
+                SummaryRowDatas = new ObservableCollection<SumRow>(summarydata.rows);
+                Fields = new ObservableCollection<FieldData>(fieldsList);
+                //var dialog = new MessageDialog(Fields[0].name);
+                //await dialog.ShowAsync();
+                //RefreshTileData(SummaryRowDatas.FirstOrDefault().locationId);
 
+                if (SelectedField == null)
+                    SelectedField = Fields[0];
+
+                OnPropertyChanged("Fields");
+                OnPropertyChanged("SelectedField");
+            }
+
+        }
+
+        private async void RefreshTileData(int id)
+        {
+            if (SummaryRowDatas.Count > 0)
+            {
+                var tiles = await App.MainDbViewModel.GetTileDataAsync(id);
+                Tiles = new ObservableCollection<Sensor>(tiles);
+               // OnPropertyChanged("SelectedField");
+                var dialog = new MessageDialog(tiles.First().displayName);
+                await dialog.ShowAsync();
+            }
+            OnPropertyChanged("Tiles");
         }
 
         public async void UserLogOut()
@@ -68,6 +83,22 @@ namespace TanyaOne.ViewModel
         public async void showselect()
         {
             var dialog = new MessageDialog((SelectedField as FieldData).name);
+            await dialog.ShowAsync();
+        }
+
+        public void LocationSelected()
+        {
+            if (SelectedField == null) return;
+            
+            var location = SummaryRowDatas.FirstOrDefault(data => data.subTitle == (SelectedField as FieldData)?.name).locationId;
+            RefreshTileData(location);
+        }
+
+
+        public async void TileClick(object sender, RoutedEventArgs e)
+        {
+            int indexOfTile = Tiles.IndexOf(((Button) sender).DataContext as Sensor);
+            var dialog = new MessageDialog(((sender as Button).DataContext as Sensor).displayName);
             await dialog.ShowAsync();
         }
 

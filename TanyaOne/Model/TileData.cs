@@ -5,14 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TanyaOne.Model
-{
+{/*
     public class TileData
     {
-        public Sensor[] Property1 { get; set; }
-    }
+        public Sensor[] Sensors { get; set; }
+    }*/
 
     public class Sensor
     {
+        public string DisplayNameToShow => displayPrimaryValue != "" ?(displayPrimaryValue + design.siunit):"";
+        private int myVar;
+
+        public int MyProperty
+        {
+            get { return myVar; }
+            set { myVar = value; }
+        }
+
+
         public int sensorId { get; set; }
         public string displayName { get; set; }
         public string displayPrimaryValue { get; set; }

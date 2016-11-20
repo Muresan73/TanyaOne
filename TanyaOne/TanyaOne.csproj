@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ChartData.cs" />
     <Compile Include="Model\FieldListData.cs" />
     <Compile Include="Model\SummaryData.cs" />
     <Compile Include="Model\TileData.cs" />

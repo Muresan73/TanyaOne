@@ -27,5 +27,9 @@ namespace TanyaOne.View
         }
 
 
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            MPageViewModel.TileClick(sender,e);
+        }
     }
 }

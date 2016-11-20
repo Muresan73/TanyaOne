@@ -37,13 +37,9 @@ namespace TanyaOne.Services
             return result;
         }
 
-        public async Task<T> PostRequestAsync<T>(string url, Dictionary<String, String> data, bool withAuthorization)
+        public async Task<T> PostRequestAsync<T>(string url, Dictionary<string, string> data, bool withAuthorization)
         {
-            string content = "{";
-            foreach (var element in data)
-            {
-                content += $"\"{element.Key}\":\"{element.Value}\",";
-            }
+            string content = data.Aggregate("{", (current, element) => current + $"\"{element.Key}\":\"{element.Value}\",");
             content = content.Remove(content.Length - 1);
             content += "}";
 
@@ -92,8 +88,8 @@ namespace TanyaOne.Services
             }
             catch (Exception ex)
             {
-
-                return httpResponseBody = "Error: " + ex.HResult.ToString("X") + " Message: " + ex.Message;
+                LastError = "Error: " + ex.HResult.ToString("X") + " Message: " + ex.Message;
+                return LastError; //TODO Update
                 //return false;
             }
             var tokenJson = JsonConvert.DeserializeObject<TokenJson>(httpResponseBody);
