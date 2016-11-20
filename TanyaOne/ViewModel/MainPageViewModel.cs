@@ -80,9 +80,10 @@ namespace TanyaOne.ViewModel
         }
         
 
-        public async void showselect()
+        public async void testclick()
         {
-            var dialog = new MessageDialog((SelectedField as FieldData).name);
+            var chart = await App.MainDbViewModel.GetChartDataAsync(5, 8, 1);
+            var dialog = new MessageDialog(chart.tiles.FirstOrDefault().text);
             await dialog.ShowAsync();
         }
 

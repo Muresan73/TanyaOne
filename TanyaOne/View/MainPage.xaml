@@ -75,7 +75,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Pina"
-                 Grid.Column="0" Click="{x:Bind MPageViewModel.showselect}"/>
+                 Grid.Column="0" Click="{x:Bind MPageViewModel.testclick}"/>
         <!--Click="{x:Bind DB.DownloadFieldList}"-->
         <GridView x:Name="MGridView" Grid.Column="1" Width="490" Background="Transparent" ItemsSource="{x:Bind MPageViewModel.Tiles,Mode=OneWay}">
             <GridView.ItemsPanel>

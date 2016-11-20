@@ -29,7 +29,7 @@ namespace TanyaOne.ViewModel
         public async Task<FieldData[]> GetFieldListAsync()
         {
             var result = await _wineServerDataService.GetRequestAsync<FieldData[]>("http://winedata.mindit.hu/ws/field/list");
-            if (result == default(FieldData[]) )
+            if (result == default(FieldData[]))
             {
                 if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
                 var dialog = new MessageDialog(_wineServerDataService.LastError);
@@ -52,7 +52,7 @@ namespace TanyaOne.ViewModel
 
         public async Task<Sensor[]> GetTileDataAsync(int sonsorId)
         {
-            var result = await _wineServerDataService.GetRequestAsync<Sensor[]>("http://winedata.mindit.hu/ws/tileData/"+sonsorId);
+            var result = await _wineServerDataService.GetRequestAsync<Sensor[]>("http://winedata.mindit.hu/ws/tileData/" + sonsorId);
             if (result == default(Sensor[]))
             {
                 if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
@@ -62,9 +62,10 @@ namespace TanyaOne.ViewModel
             return result;
         }
 
-        public async Task<ChartData> GetChartDataAsync(int sonsorId)
+        public async Task<ChartData> GetChartDataAsync(int locationId, int sensorId, int typeId)
         {
-            var result = await _wineServerDataService.GetRequestAsync<ChartData>("http://winedata.mindit.hu/ws/chartData" + sonsorId);
+            var result = await _wineServerDataService.PostRequestAsync<ChartData>("http://winedata.mindit.hu/ws/chartData",
+                new Dictionary<string, string> { { "locationId", locationId.ToString() }, { "sensorId", sensorId.ToString() }, { "typeId", typeId.ToString() } }, true);
             if (result == default(ChartData))
             {
                 if (_wineServerDataService.LastError.Contains("401")) SecurityService.DeleteLastLoggedInUser();
@@ -78,17 +79,18 @@ namespace TanyaOne.ViewModel
         {
             //var status = await wineServerDataService.SaveTokenFromServer(username, password);
 
-                var result = await _wineServerDataService.PostRequestAsync<TokenJson>("http://winedata.mindit.hu/ws/auth",
-                    new Dictionary<string, string>{ { "email", username }, { "password", password } }, false);
+            var result = await _wineServerDataService.PostRequestAsync<TokenJson>("http://winedata.mindit.hu/ws/auth",
+                new Dictionary<string, string> { { "email", username }, { "password", password } }, false);
 
-            if (result == default (TokenJson))
+            if (result == default(TokenJson))
             {
                 var dialog = new MessageDialog(_wineServerDataService.LastError);
                 await dialog.ShowAsync();
-                
+
                 return false;
-            }else
-            SecurityService.SaveTokenWithUser(username, result.token);
+            }
+            else
+                SecurityService.SaveTokenWithUser(username, result.token);
             return true;
         }
 
