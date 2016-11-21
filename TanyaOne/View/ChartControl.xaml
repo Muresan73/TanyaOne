@@ -1,0 +1,90 @@
+﻿<UserControl
+    x:Class="TanyaOne.View.ChartControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TanyaOne.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:viewModel="using:TanyaOne.ViewModel"
+    xmlns:dataVisualization="using:WinRTXamlToolkit.Controls.DataVisualization"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+<!--<UserControl.DataContext>
+    <viewModel:ChartViewModel/>
+</UserControl.DataContext>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <charting:Chart Grid.Row="0"
+                x:Name="LineChart2"
+                
+                Margin="70,0">
+            <charting:Chart.LegendStyle>
+                <Style
+                        TargetType="dataVisualization:Legend">
+                    <Setter
+                            Property="Width"
+                            Value="0"/>
+                </Style>
+            </charting:Chart.LegendStyle>
+
+
+            <charting:LineSeries
+                    IndependentValueBinding="{Binding date}"
+                    DependentValueBinding="{Binding value}">
+                <charting:LineSeries.DataPointStyle>
+                    <Style
+                            TargetType="charting:LineDataPoint">
+                        <Setter
+                                Property="BorderThickness"
+                                Value="0" />
+                        <Setter
+                                Property="IsTabStop"
+                                Value="False" />
+                        <Setter
+                                Property="Width"
+                                Value="0" />
+                        <Setter
+                                Property="Height"
+                                Value="0" />
+                        <Setter
+                                Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate
+                                        TargetType="charting:LineDataPoint">
+                                    <Grid
+                                            x:Name="Root"
+                                            Opacity="0" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </charting:LineSeries.DataPointStyle>
+                
+            </charting:LineSeries>
+        </charting:Chart>
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[0].text}" /></Border>
+            <Border Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[0].value}" HorizontalAlignment="Right"  /></Border>
+            <Border Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[1].text}" /></Border>
+            <Border Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[1].value}" HorizontalAlignment="Right"  /></Border>
+            <Border Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[2].text}" /></Border>
+            <Border Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[2].value}" HorizontalAlignment="Right" /></Border>
+            <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[3].text}" /></Border>
+            <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[3].value}" HorizontalAlignment="Right" /></Border>
+        </Grid>
+    </Grid>
+</UserControl>

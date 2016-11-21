@@ -21,5 +21,6 @@
                        Foreground="AliceBlue" FontWeight="Bold" Text="Login"/>
         </Button>
         <TextBlock x:Name="Errorbox" Visibility="Collapsed"/>
+        <local:ChartControl Height="600" Width="600"  x:Name="ChartControl12"  />
     </StackPanel>
 </Page>
