@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:viewModel="using:TanyaOne.ViewModel" 
-    >
+    xmlns:viewModel="using:TanyaOne.ViewModel"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps">
     <Page.DataContext>
         <viewModel:LoginViewModel/>
     </Page.DataContext>
@@ -20,14 +20,9 @@
             <TextBlock FontSize="15" TextAlignment="Center" 
                        Foreground="AliceBlue" FontWeight="Bold" Text="Login"/>
         </Button>
-        <Grid >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Content="Krumpli" Click="alma">
-            </Button>
-            <local:ChartControl   x:Name="ChartControl12"  Grid.Row="1"/>
+        <Grid Height="500" Width="500">
+            <local:ChartControl   x:Name="ChartControl12"   Visibility="Collapsed" />
+            <maps:MapControl  x:Name="MapControl"  MapServiceToken="{x:Bind MVM.MapKey}" Style="Aerial" Center="{x:Bind MVM.center}" ZoomLevel="5" />
         </Grid>
         <TextBlock x:Name="Errorbox" Visibility="Collapsed"/>
 

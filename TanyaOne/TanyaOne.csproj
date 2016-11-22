@@ -101,13 +101,13 @@
     <Compile Include="Model\TileData.cs" />
     <Compile Include="Model\WineDataModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\MapControlService.cs" />
     <Compile Include="Services\SecurityService.cs" />
     <Compile Include="Services\WineServerDataService.cs" />
     <Compile Include="ViewModel\ChartViewModel.cs" />
     <Compile Include="ViewModel\DBViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Model\TokenJson.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="View\ChartControl.xaml.cs">
       <DependentUpon>ChartControl.xaml</DependentUpon>
     </Compile>
