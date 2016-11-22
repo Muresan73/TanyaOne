@@ -11,9 +11,9 @@
     xmlns:dataVisualization="using:WinRTXamlToolkit.Controls.DataVisualization"
     d:DesignHeight="300"
     d:DesignWidth="400">
-<!--<UserControl.DataContext>
+<UserControl.DataContext>
     <viewModel:ChartViewModel/>
-</UserControl.DataContext>-->
+</UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -23,7 +23,7 @@
         <charting:Chart Grid.Row="0"
                 x:Name="LineChart2"
                 
-                Margin="70,0">
+                Margin="0,0">
             <charting:Chart.LegendStyle>
                 <Style
                         TargetType="dataVisualization:Legend">
