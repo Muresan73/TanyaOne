@@ -10,6 +10,7 @@
     x:Name="Page"
     xmlns:model="using:TanyaOne.Model"
     xmlns:control="using:TanyaOne.View"
+    xmlns:views="using:TanyaOne.View"
     >
     <Grid Background="Moccasin" >
         <VisualStateManager.VisualStateGroups>
@@ -67,7 +68,7 @@
             <ColumnDefinition Width="Auto" x:Name="PanelColumnDefinition" />
         </Grid.ColumnDefinitions>
         <control:ChartView/>
-        <!--<maps:MapControl x:Name="MapControl" Grid.Column="0" />-->
+        <maps:MapControl x:Name="MapControl" Grid.Column="0" MapServiceToken="Atczi54OBH138Uzdr8yW~_stpOFGsfxPD7B7HQWu0Vw~AoSKaPL-tVAO0045sOdIzjlm61ebgady-3RoP2kQD2sVbCxZXRRFVUdMYRGqfIwI"  Style="Aerial" ZoomLevel="18" />
         <ComboBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" 
                  SelectedItem="{x:Bind MPageViewModel.SelectedField, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.Fields,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.LocationSelected}" >
             <ComboBox.ItemTemplate>

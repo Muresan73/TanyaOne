@@ -20,7 +20,16 @@
             <TextBlock FontSize="15" TextAlignment="Center" 
                        Foreground="AliceBlue" FontWeight="Bold" Text="Login"/>
         </Button>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Content="Krumpli" Click="alma">
+            </Button>
+            <local:ChartControl   x:Name="ChartControl12"  Grid.Row="1"/>
+        </Grid>
         <TextBlock x:Name="Errorbox" Visibility="Collapsed"/>
-        <local:ChartControl Height="600" Width="600"  x:Name="ChartControl12"  />
+
     </StackPanel>
 </Page>

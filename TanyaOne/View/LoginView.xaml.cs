@@ -36,5 +36,9 @@ namespace TanyaOne.View
             this.InitializeComponent();
         }
 
+        private void alma(object sender, RoutedEventArgs e)
+        {
+            ChartControl12.Visibility = Visibility.Collapsed;
+        }
     }
 }
