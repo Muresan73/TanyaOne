@@ -27,13 +27,10 @@ namespace TanyaOne.Services
             try
             {
                 var username = vault.FindAllByResource(WineToken).FirstOrDefault().UserName;
-                // Removes the credential from the password vault.
                 vault.Remove(vault.Retrieve(WineToken, username));
             }
             catch (Exception)
             {
-                // If no credentials have been stored with the given RESOURCE_NAME, an exception
-                // is thrown.
             }
         }
 

@@ -14,7 +14,7 @@ namespace TanyaOne.Model
             public string plant { get; set; }
             public List<Polygon> polygon { get; set; }
             public List<object> rows { get; set; }
-            public List<Location> locations { get; set; }
+            public FieldLocationData[] locations { get; set; }
             public bool _default { get; set; }
         }
 
@@ -24,7 +24,7 @@ namespace TanyaOne.Model
             public float lat { get; set; }
         }
 
-        public class Location
+        public class FieldLocationData
         {
             public int fieldId { get; set; }
             public string name { get; set; }

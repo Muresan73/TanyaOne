@@ -17,10 +17,15 @@ namespace TanyaOne.ViewModel
 
     public class MainPageViewModel:INotifyPropertyChanged
     {
+        public object SelectedNode { get; set; }
+        public FieldLocationData[] NodeList => (SelectedField as FieldData)?.locations;
         public object SelectedField { get; set; }
         public ObservableCollection<FieldData> Fields { get; set; }
         public ObservableCollection<SumRow> SummaryRowDatas { get; set; }
         public ObservableCollection<Sensor> Tiles { get; set; }
+
+        public MapViewModel MVM { get; set; }
+        public ChartViewModel ChartControlViewModel { get; set; }
 
         public MainPageViewModel()
         {
@@ -54,8 +59,8 @@ namespace TanyaOne.ViewModel
                 if (SelectedField == null)
                     SelectedField = Fields[0];
 
-                OnPropertyChanged("Fields");
-                OnPropertyChanged("SelectedField");
+                OnPropertyChanged(nameof(Fields));
+                OnPropertyChanged(nameof(SelectedField));
             }
 
         }
@@ -70,7 +75,7 @@ namespace TanyaOne.ViewModel
                 var dialog = new MessageDialog(tiles.First().displayName);
                 await dialog.ShowAsync();
             }
-            OnPropertyChanged("Tiles");
+            OnPropertyChanged(nameof(Tiles));
         }
 
         public async void UserLogOut()
@@ -79,7 +84,7 @@ namespace TanyaOne.ViewModel
             ((Frame)Window.Current.Content).Navigate(typeof(LoginView));
         }
         
-
+        
         public async void testclick()
         {
             var chart = await App.MainDbViewModel.GetChartDataAsync(5, 8, 1);
@@ -90,17 +95,30 @@ namespace TanyaOne.ViewModel
         public void LocationSelected()
         {
             if (SelectedField == null) return;
-            
-            var location = SummaryRowDatas.FirstOrDefault(data => data.subTitle == (SelectedField as FieldData)?.name).locationId;
-            RefreshTileData(location);
+
+            var location = NodeList.FirstOrDefault();//SummaryRowDatas.FirstOrDefault(data => data.subTitle == (SelectedField as FieldData)?.name).locationId;
+            SelectedNode = location;
+            OnPropertyChanged(nameof(SelectedNode));
+            RefreshTileData(location.id);
         }
 
+        public void NodeSelected()
+        {
+            if(SelectedNode == null) return;
+            RefreshTileData((SelectedNode as FieldLocationData).id);
+        }
 
         public async void TileClick(object sender, RoutedEventArgs e)
         {
-            int indexOfTile = Tiles.IndexOf(((Button) sender).DataContext as Sensor);
             var dialog = new MessageDialog(((sender as Button).DataContext as Sensor).displayName);
             await dialog.ShowAsync();
+            //int indexOfTile = Tiles.IndexOf(((Button) sender).DataContext as Sensor);
+            int sensorid = ((sender as Button)?.DataContext as Sensor).sensorId;
+            int locasionId = (SelectedNode as FieldLocationData).id;
+            
+            // TODO 
+            var valami = await App.MainDbViewModel.GetChartDataAsync(locasionId, sensorid, 1);
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Credentials;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -36,12 +37,8 @@ namespace TanyaOne.View
         {
             this.InitializeComponent();
             MVM = new MapViewModel(MapControl);
-            MapControl.DataContext = MVM;
-        }
-
-        private void alma(object sender, RoutedEventArgs e)
-        {
-            ChartControl12.Visibility = Visibility.Collapsed;
+            //MapControl.DataContext = MVM;
+           
         }
     }
 }

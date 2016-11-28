@@ -17,12 +17,6 @@ namespace TanyaOne.ViewModel
         public List<Datum> VisualDataElements { get; set; }
         public Tile[] ChartTiles { get; set; }
 
-        public ChartViewModel()
-        {
-
-
-        }
-
         public void UpdateChartData(Datum[] dates, Tile[] tiles)
         {
             ChartTiles = new Tile[4];

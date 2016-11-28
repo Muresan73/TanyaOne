@@ -16,13 +16,11 @@ namespace TanyaOne.ViewModel
     public class DBViewModel
     {
         public bool IsLoggedIn => SecurityService.GetLastLoggedInUser() != null;
-        private WineDataModel WineData;
         private readonly WineServerDataService _wineServerDataService;
 
 
         public DBViewModel()
         {
-            WineData = new WineDataModel();
             _wineServerDataService = new WineServerDataService();
         }
 

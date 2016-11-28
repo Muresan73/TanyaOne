@@ -71,7 +71,7 @@ namespace TanyaOne.Services
             }
 
         }
-
+        /*
         public async Task<string> SaveTokenFromServer(string email, string password)
         {
             HttpClient httpClient = new HttpClient();
@@ -117,6 +117,6 @@ namespace TanyaOne.Services
             }
             var dialog = new MessageDialog(httpResponseBody);
             await dialog.ShowAsync();
-        }
+        }*/
     }
 }
