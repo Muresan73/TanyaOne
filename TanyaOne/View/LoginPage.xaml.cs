@@ -31,12 +31,11 @@ namespace TanyaOne.View
     public sealed partial class LoginView : Page
     {
         public LoginViewModel LoginViewModelInstance => (LoginViewModel) this.DataContext;
-        public MapViewModel MVM { get; }
 
         public LoginView()
         {
             this.InitializeComponent();
-            MVM = new MapViewModel(MapControl);
+            
             //MapControl.DataContext = MVM;
            
         }

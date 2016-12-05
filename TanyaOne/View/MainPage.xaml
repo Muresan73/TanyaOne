@@ -9,7 +9,6 @@
     mc:Ignorable="d"
     x:Name="Page"
     xmlns:model="using:TanyaOne.Model"
-    xmlns:control="using:TanyaOne.View"
     xmlns:views="using:TanyaOne.View"
     >
     <Grid Background="Moccasin" >
@@ -67,52 +66,67 @@
             <ColumnDefinition Width="*" x:Name="MapColumnDefinition"/>
             <ColumnDefinition Width="Auto" x:Name="PanelColumnDefinition" />
         </Grid.ColumnDefinitions>
-        
-        <maps:MapControl x:Name="MapControl" Grid.Column="0" MapServiceToken="Atczi54OBH138Uzdr8yW~_stpOFGsfxPD7B7HQWu0Vw~AoSKaPL-tVAO0045sOdIzjlm61ebgady-3RoP2kQD2sVbCxZXRRFVUdMYRGqfIwI"  />
-        <ComboBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" 
+
+        <maps:MapControl  x:Name="MapControl"  MapServiceToken="{x:Bind MPageViewModel.MVM.MapKey}" Style="AerialWithRoads" Center="{x:Bind MPageViewModel.MVM.Center, Mode=OneWay}" ZoomLevel="15" />
+        <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" >
+            <ComboBox 
                  SelectedItem="{x:Bind MPageViewModel.SelectedField, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.Fields,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.LocationSelected}" >
-            <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="model:FieldData">
-                    <TextBlock Text="{x:Bind name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Pina"
-                 Grid.Column="0" Click="{x:Bind MPageViewModel.testclick}"/>
-        <!--Click="{x:Bind DB.DownloadFieldList}"-->
-        <GridView x:Name="MGridView" Grid.Column="1" Width="490" Background="Transparent" ItemsSource="{x:Bind MPageViewModel.Tiles,Mode=OneWay}">
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VariableSizedWrapGrid MaximumRowsOrColumns="3" 
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="model:FieldData">
+                        <TextBlock Text="{x:Bind name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox 
+                 SelectedItem="{x:Bind MPageViewModel.SelectedNode, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.NodeList,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.NodeSelected}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="model:FieldLocationData">
+                        <TextBlock Text="{x:Bind name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <Grid Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GridView x:Name="MGridView" Grid.Row="0"  Background="Transparent" ItemsSource="{x:Bind MPageViewModel.Tiles,Mode=OneWay}">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VariableSizedWrapGrid MaximumRowsOrColumns="3" 
                                    Orientation="Horizontal"
                                    HorizontalAlignment="Center" >
-                        <VariableSizedWrapGrid.ChildrenTransitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition />
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </VariableSizedWrapGrid.ChildrenTransitions>
-                    </VariableSizedWrapGrid>
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="model:Sensor">
-                    <Button  Margin="10,10,10,10" Background="AliceBlue" Click="ButtonBase_OnClick">
-                        <StackPanel Width="250" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <Grid  Margin="0,0,0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Bind design.icon}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind DisplayNameToShow}" Foreground="{x:Bind design.color}" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5,5,0"/>
-                            </Grid>
-                            <TextBlock Text="{x:Bind displayName}"/>
-                        </StackPanel>
-                    </Button>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+                            <VariableSizedWrapGrid.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition />
+                                    <RepositionThemeTransition/>
+                                </TransitionCollection>
+                            </VariableSizedWrapGrid.ChildrenTransitions>
+                        </VariableSizedWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Sensor">
+                        <Button  Margin="10,10,10,10" Background="AliceBlue" Click="ButtonBase_OnClick">
+                            <StackPanel Width="250" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid  Margin="0,0,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Bind design.icon}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"/>
+                                    <TextBlock Grid.Column="1" Text="{x:Bind DisplayNameToShow}" Foreground="{x:Bind design.color}" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5,5,0"/>
+                                </Grid>
+                                <TextBlock Text="{x:Bind displayName}"/>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+            <views:ChartControl Grid.Row="1" x:Name="ChartControl12"   Visibility="Visible" Margin="0,0,0,25" />
+            <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Hide" />
+        </Grid>
         <CommandBar Grid.Column="1" VerticalAlignment="Bottom" ClosedDisplayMode="Minimal">
             <AppBarButton Icon="BlockContact" Label="Log Out" Click="{x:Bind MPageViewModel.UserLogOut}"/>
         </CommandBar>

@@ -61,6 +61,8 @@ namespace TanyaOne.ViewModel
 
                 OnPropertyChanged(nameof(Fields));
                 OnPropertyChanged(nameof(SelectedField));
+
+                MVM.LoadMapElements(Fields.Select(i => i.polygon).ToList(),Fields.Select(i => i.locations).ToList());
             }
 
         }
@@ -83,28 +85,24 @@ namespace TanyaOne.ViewModel
             await App.MainDbViewModel.LogOut();
             ((Frame)Window.Current.Content).Navigate(typeof(LoginView));
         }
-        
-        
-        public async void testclick()
-        {
-            var chart = await App.MainDbViewModel.GetChartDataAsync(5, 8, 1);
-            var dialog = new MessageDialog(chart.tiles.FirstOrDefault().text);
-            await dialog.ShowAsync();
-        }
 
         public void LocationSelected()
         {
             if (SelectedField == null) return;
 
-            var location = NodeList.FirstOrDefault();//SummaryRowDatas.FirstOrDefault(data => data.subTitle == (SelectedField as FieldData)?.name).locationId;
-            SelectedNode = location;
+            FieldLocationData location = NodeList.FirstOrDefault();//SummaryRowDatas.FirstOrDefault(data => data.subTitle == (SelectedField as FieldData)?.name).locationId;
+            OnPropertyChanged(nameof(NodeList));
+            SelectedNode = NodeList[0];
+            OnPropertyChanged(nameof(SelectedNode));
+
+            MVM.SetCenter(location.lat,location.lon);
+
             NodeSelected();
         }
 
         public void NodeSelected()
         {
-            if(SelectedNode == null) return;
-            OnPropertyChanged(nameof(SelectedNode));
+            if(SelectedNode != null)
             RefreshTileData((SelectedNode as FieldLocationData).id);
         }
 
@@ -117,7 +115,8 @@ namespace TanyaOne.ViewModel
             int locasionId = (SelectedNode as FieldLocationData).id;
             
             // TODO 
-            var valami = await App.MainDbViewModel.GetChartDataAsync(locasionId, sensorid, 1);
+            var chartData = await App.MainDbViewModel.GetChartDataAsync(locasionId, sensorid, 1);
+            ChartControlViewModel.UpdateChartData(chartData.data,chartData.tiles);
 
         }
 

@@ -24,12 +24,15 @@ namespace TanyaOne.View
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(200, 200));
             MPageViewModel = new MainPageViewModel();
             this.DataContext = MPageViewModel;
+            MPageViewModel.ChartControlViewModel = (ChartViewModel)ChartControl12.DataContext;
+            MPageViewModel.MVM = new MapViewModel(MapControl);
         }
 
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            MPageViewModel.TileClick(sender,e);
+
+            MPageViewModel.TileClick(sender, e);
         }
     }
 }
