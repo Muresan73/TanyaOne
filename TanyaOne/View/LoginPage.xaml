@@ -20,8 +20,8 @@
             <TextBlock Text="Login" FontSize="15" TextAlignment="Center" 
                        Foreground="AliceBlue" FontWeight="Bold" />
         </Button>
-        <Grid Height="500" Width="500">
-            <local:ChartControl   x:Name="ChartControl12"   Visibility="Collapsed" />
+        <Grid Height="500" Width="500" Visibility="Collapsed">
+            <local:ChartControl   x:Name="ChartControl12"   Visibility="Visible" />
             <maps:MapControl Visibility="Collapsed" x:Name="MapControl"  MapServiceToken="{x:Bind MVM.MapKey}" Style="AerialWithRoads" Center="{x:Bind MVM.center}" ZoomLevel="5" />
         </Grid>
         <TextBlock x:Name="Errorbox" Visibility="Collapsed"/>

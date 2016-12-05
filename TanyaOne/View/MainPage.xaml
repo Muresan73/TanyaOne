@@ -67,7 +67,7 @@
             <ColumnDefinition Width="*" x:Name="MapColumnDefinition"/>
             <ColumnDefinition Width="Auto" x:Name="PanelColumnDefinition" />
         </Grid.ColumnDefinitions>
-        <control:ChartView/>
+        
         <maps:MapControl x:Name="MapControl" Grid.Column="0" MapServiceToken="Atczi54OBH138Uzdr8yW~_stpOFGsfxPD7B7HQWu0Vw~AoSKaPL-tVAO0045sOdIzjlm61ebgady-3RoP2kQD2sVbCxZXRRFVUdMYRGqfIwI"  />
         <ComboBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" 
                  SelectedItem="{x:Bind MPageViewModel.SelectedField, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.Fields,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.LocationSelected}" >

@@ -98,13 +98,13 @@ namespace TanyaOne.ViewModel
 
             var location = NodeList.FirstOrDefault();//SummaryRowDatas.FirstOrDefault(data => data.subTitle == (SelectedField as FieldData)?.name).locationId;
             SelectedNode = location;
-            OnPropertyChanged(nameof(SelectedNode));
-            RefreshTileData(location.id);
+            NodeSelected();
         }
 
         public void NodeSelected()
         {
             if(SelectedNode == null) return;
+            OnPropertyChanged(nameof(SelectedNode));
             RefreshTileData((SelectedNode as FieldLocationData).id);
         }
 

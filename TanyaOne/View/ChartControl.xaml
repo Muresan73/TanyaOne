@@ -33,7 +33,6 @@
                 </Style>
             </charting:Chart.LegendStyle>
 
-
             <charting:LineSeries
                     IndependentValueBinding="{Binding date}"
                     DependentValueBinding="{Binding value}">
@@ -88,3 +87,4 @@
         </Grid>
     </Grid>
 </UserControl>
+
