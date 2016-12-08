@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace TanyaOne.Model
 {/*
@@ -14,13 +16,7 @@ namespace TanyaOne.Model
     public class Sensor
     {
         public string DisplayNameToShow => displayPrimaryValue != "" ?(displayPrimaryValue + design.siunit):"";
-        private int myVar;
-
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
+        public ImageSource AssetUri => new BitmapImage(new Uri(string.Format("ms-appx:///Assets/TileIcons/{0}.png", design.icon)));
 
 
         public int sensorId { get; set; }

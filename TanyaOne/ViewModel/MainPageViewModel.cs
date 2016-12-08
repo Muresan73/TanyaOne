@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.System.Threading;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,7 +17,7 @@ using TanyaOne.View;
 namespace TanyaOne.ViewModel
 {
 
-    public class MainPageViewModel:INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         public object SelectedNode { get; set; }
         public FieldLocationData[] NodeList => (SelectedField as FieldData)?.locations;
@@ -27,14 +29,17 @@ namespace TanyaOne.ViewModel
         public MapViewModel MVM { get; set; }
         public ChartViewModel ChartControlViewModel { get; set; }
 
+        public Visibility IsDataLoading { get; private set; }
+
         public MainPageViewModel()
         {
-            Tiles = new ObservableCollection<Sensor>() {new Sensor() {displayName = "krumpli",displayPrimaryValue = "110",design = new Design() {icon = "kolbász",color = "red"} } };
             LoadData();
         }
 
         private async void LoadData()
         {
+            IsDataLoading = Visibility.Visible;
+            OnPropertyChanged(nameof(IsDataLoading));
             var fieldsList = await App.MainDbViewModel.GetFieldListAsync();
             var summarydata = await App.MainDbViewModel.GetSummaryAsync();
 
@@ -62,22 +67,28 @@ namespace TanyaOne.ViewModel
                 OnPropertyChanged(nameof(Fields));
                 OnPropertyChanged(nameof(SelectedField));
 
-                MVM.LoadMapElements(Fields.Select(i => i.polygon).ToList(),Fields.Select(i => i.locations).ToList());
+                MVM.LoadMapElements(Fields.Select(i => i.polygon).ToList(), Fields.Select(i => i.locations).ToList());
+
             }
 
         }
 
         private async void RefreshTileData(int id)
         {
+            IsDataLoading = Visibility.Visible;
+            OnPropertyChanged(nameof(IsDataLoading));
+
             if (SummaryRowDatas.Count > 0)
             {
                 var tiles = await App.MainDbViewModel.GetTileDataAsync(id);
                 Tiles = new ObservableCollection<Sensor>(tiles);
-               // OnPropertyChanged("SelectedField");
-                var dialog = new MessageDialog(tiles.First().displayName);
-                await dialog.ShowAsync();
+                //var dialog = new MessageDialog(tiles.First().displayName);
+                // await dialog.ShowAsync();
             }
             OnPropertyChanged(nameof(Tiles));
+
+            IsDataLoading = Visibility.Collapsed;
+            OnPropertyChanged(nameof(IsDataLoading));
         }
 
         public async void UserLogOut()
@@ -95,34 +106,37 @@ namespace TanyaOne.ViewModel
             SelectedNode = NodeList[0];
             OnPropertyChanged(nameof(SelectedNode));
 
-            MVM.SetCenter(location.lat,location.lon);
+            MVM.SetCenter(location.lat, location.lon);
 
             NodeSelected();
         }
 
         public void NodeSelected()
         {
-            if(SelectedNode != null)
-            RefreshTileData((SelectedNode as FieldLocationData).id);
+            if (SelectedNode != null)
+                RefreshTileData((SelectedNode as FieldLocationData).id);
         }
 
         public async void TileClick(object sender, RoutedEventArgs e)
         {
-            var dialog = new MessageDialog(((sender as Button).DataContext as Sensor).displayName);
-            await dialog.ShowAsync();
-            //int indexOfTile = Tiles.IndexOf(((Button) sender).DataContext as Sensor);
-            int sensorid = ((sender as Button)?.DataContext as Sensor).sensorId;
+
+
+            var sensor = (sender as Button)?.DataContext as Sensor;
+            int sensorid = sensor.sensorId;
             int locasionId = (SelectedNode as FieldLocationData).id;
-            
-            // TODO 
+
+            IsDataLoading = Visibility.Visible;
+            OnPropertyChanged(nameof(IsDataLoading));
             var chartData = await App.MainDbViewModel.GetChartDataAsync(locasionId, sensorid, 1);
-            ChartControlViewModel.UpdateChartData(chartData.data,chartData.tiles);
+            ChartControlViewModel.UpdateChartData(sensor.displayName,chartData.data, chartData.tiles);
+            IsDataLoading = Visibility.Collapsed;
+            OnPropertyChanged(nameof(IsDataLoading));
 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName )
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

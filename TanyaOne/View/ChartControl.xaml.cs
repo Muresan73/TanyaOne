@@ -37,12 +37,7 @@ namespace TanyaOne.View
                 {
                     Orientation = AxisOrientation.X,
                     Height = 0
-                };
-            var visualDataElements = new Datum[] { new Datum() { date = "k0rte", value = 3 }, new Datum() { date = "cser", value = 4 }, new Datum() { date = "alma", value = 2 }, new Datum() { date = "has", value = 1 } };
-            var chartTiles = new[] { new Tile() { text = "08:88", value = "5" }, new Tile() { text = "08:90", value = "10" }, new Tile() { text = "09:88", value = "8" } };
-
-            CViewModel.UpdateChartData(visualDataElements, chartTiles);
-
+                };          
         }
 
         public void updateChart(object sender, PropertyChangedEventArgs e)

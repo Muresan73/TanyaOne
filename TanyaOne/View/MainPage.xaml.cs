@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,7 +32,6 @@ namespace TanyaOne.View
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-
             MPageViewModel.TileClick(sender, e);
         }
     }

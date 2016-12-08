@@ -126,6 +126,16 @@
     <None Include="TanyaOne_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\TileIcons\humidity.png" />
+    <Content Include="Assets\TileIcons\leaf-moist.png" />
+    <Content Include="Assets\TileIcons\luminance.png" />
+    <Content Include="Assets\TileIcons\rainfall.png" />
+    <Content Include="Assets\TileIcons\soil-moist.png" />
+    <Content Include="Assets\TileIcons\soil-temperature.png" />
+    <Content Include="Assets\TileIcons\temperature.png" />
+    <Content Include="Assets\TileIcons\uv.png" />
+    <Content Include="Assets\TileIcons\wind-direction.png" />
+    <Content Include="Assets\TileIcons\wind-speed.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -153,7 +163,9 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
