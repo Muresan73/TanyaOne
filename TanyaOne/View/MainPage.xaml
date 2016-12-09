@@ -21,6 +21,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MGridView.Width" Value="900"></Setter>
+                        <Setter Target="RelativeFieldSelector.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="GridView2PanelState">
@@ -28,6 +29,7 @@
                         <AdaptiveTrigger MinWindowWidth="1200"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="RelativeFieldSelector.Visibility" Value="Collapsed"/>
                         <Setter Target="MGridView.Width" Value="600"></Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -36,6 +38,7 @@
                         <AdaptiveTrigger MinWindowWidth="700"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="RelativeFieldSelector.Visibility" Value="Collapsed"/>
                         <Setter Target="MGridView.Width" Value="300"></Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -47,6 +50,7 @@
                         <!--<Setter Target="MGridView.Width" Value="600"></Setter>-->
                         <Setter Target="MapColumnDefinition.Width" Value="0"></Setter>
                         <Setter Target="PanelColumnDefinition.Width" Value="*"></Setter>
+                        <Setter Target="RelativeFieldSelector.Visibility" Value="Visible"/>
                         <Setter Target="MapControl.Visibility" Value="Collapsed"></Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -59,6 +63,7 @@
                         <Setter Target="MapColumnDefinition.Width" Value="0"></Setter>
                         <Setter Target="PanelColumnDefinition.Width" Value="*"></Setter>
                         <Setter Target="MapControl.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="RelativeFieldSelector.Visibility" Value="Visible"/> 
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -68,7 +73,7 @@
             <ColumnDefinition Width="Auto" x:Name="PanelColumnDefinition" />
         </Grid.ColumnDefinitions>
         <maps:MapControl  x:Name="MapControl"  MapServiceToken="{x:Bind MPageViewModel.MVM.MapKey}" Style="AerialWithRoads" Center="{x:Bind MPageViewModel.MVM.Center, Mode=OneWay}" ZoomLevel="15" />
-        <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" >
+        <StackPanel  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20" >
             <ComboBox 
                  SelectedItem="{x:Bind MPageViewModel.SelectedField, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.Fields,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.LocationSelected}" >
                 <ComboBox.ItemTemplate>
@@ -86,12 +91,12 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
-        <Grid Grid.Column="1" >
+        <Grid Grid.Column="1" x:Name="MGridView" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <GridView x:Name="MGridView" Grid.Row="0"  Background="Transparent" ItemsSource="{x:Bind MPageViewModel.Tiles,Mode=OneWay}">
+            <GridView  Grid.Row="0"  Background="Transparent" ItemsSource="{x:Bind MPageViewModel.Tiles,Mode=OneWay}">
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VariableSizedWrapGrid MaximumRowsOrColumns="3" 
@@ -124,6 +129,25 @@
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
+            <RelativePanel x:Name="RelativeFieldSelector" Grid.Row="0">
+                <Border RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWith="FieldBox" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="Green"/>
+                <ComboBox x:Name="FieldBox" RelativePanel.AlignBottomWithPanel="True"  RelativePanel.AlignLeftWithPanel="True"  Margin="10,5"
+                 SelectedItem="{x:Bind MPageViewModel.SelectedField, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.Fields,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.LocationSelected}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="model:FieldData">
+                            <TextBlock Text="{x:Bind name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox  x:Name="NodeBox" RelativePanel.AlignBottomWithPanel="True"  RelativePanel.RightOf="FieldBox"  Margin="10,5"
+                 SelectedItem="{x:Bind MPageViewModel.SelectedNode, Mode=TwoWay}" ItemsSource="{x:Bind MPageViewModel.NodeList,Mode=OneWay}" SelectionChanged="{x:Bind MPageViewModel.NodeSelected}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="model:FieldLocationData">
+                            <TextBlock Text="{x:Bind name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </RelativePanel>
             <views:ChartControl Grid.Row="1" x:Name="ChartControl12"  Margin="0,0,0,25" />
         </Grid>
         <Grid Background="#99FFFFFF" Grid.Column="1" Visibility="{x:Bind MPageViewModel.IsDataLoading, Mode=OneWay}">

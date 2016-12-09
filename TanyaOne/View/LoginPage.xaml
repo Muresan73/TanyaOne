@@ -13,6 +13,7 @@
     </Page.DataContext>
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid MinWidth="50" MinHeight="50"/>
         <TextBlock FontSize="36" Width="250" TextAlignment="Center" FontWeight="Bold" >Login</TextBlock>
         <TextBox  PlaceholderText="User Name" Text="{x:Bind LoginViewModelInstance.Username ,Mode=TwoWay}" Margin="0,20,0,0"/>
         <PasswordBox  PlaceholderText="Password" Margin="0,20,0,20" Password="{x:Bind LoginViewModelInstance.Password ,Mode=TwoWay}"/>
@@ -20,8 +21,8 @@
             <TextBlock Text="Login" FontSize="15" TextAlignment="Center" 
                        Foreground="AliceBlue" FontWeight="Bold" />
         </Button>
-        <Grid Height="500" Width="500" Visibility="Collapsed">
-            
+        <Grid MinWidth="50" MinHeight="50" Margin="5,5">
+            <ProgressRing  IsActive="True" Visibility="{x:Bind LoginViewModelInstance.LoggingIn, Mode=OneWay}" MinWidth="45" MinHeight="45"  />
         </Grid>
         <TextBlock x:Name="Errorbox" Visibility="Collapsed"/>
     </StackPanel>

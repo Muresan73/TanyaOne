@@ -120,7 +120,6 @@ namespace TanyaOne.ViewModel
         public async void TileClick(object sender, RoutedEventArgs e)
         {
 
-
             var sensor = (sender as Button)?.DataContext as Sensor;
             int sensorid = sensor.sensorId;
             int locasionId = (SelectedNode as FieldLocationData).id;

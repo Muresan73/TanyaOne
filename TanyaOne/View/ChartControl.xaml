@@ -84,21 +84,30 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Border Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="Black" ><TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[0].text, Mode=OneWay}" /></Border>
-            <Border Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[0].value, Mode=OneWay}" HorizontalAlignment="Right"  /></Border>
+            <Border  Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="Black" >
+                <RelativePanel>
+                    <TextBlock RelativePanel.AlignLeftWithPanel="true" RelativePanel.LeftOf="Value0" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[0].text, Mode=OneWay}" />
+                    <TextBlock x:Name="Value0" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[0].value, Mode=OneWay}"  RelativePanel.AlignRightWithPanel="True" />
+                </RelativePanel>
+            </Border>
             <Border Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[1].text, Mode=OneWay}" /></Border>
-            <Border Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[1].value, Mode=OneWay}" HorizontalAlignment="Right"  /></Border>
+                <RelativePanel>
+                    <TextBlock RelativePanel.AlignLeftWithPanel="true" RelativePanel.LeftOf="Value1" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[1].text, Mode=OneWay}" />
+                    <TextBlock RelativePanel.AlignRightWithPanel="True" x:Name="Value1" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[1].value, Mode=OneWay}"  />
+                </RelativePanel>
+            </Border>
             <Border Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[2].text, Mode=OneWay}" /></Border>
-            <Border Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[2].value, Mode=OneWay}" HorizontalAlignment="Right" /></Border>
+                <RelativePanel>
+                    <TextBlock  RelativePanel.AlignLeftWithPanel="true" RelativePanel.LeftOf="Value2" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[2].text, Mode=OneWay}" />
+                    <TextBlock RelativePanel.AlignRightWithPanel="True" x:Name="Value2" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[2].value, Mode=OneWay}"  />
+                </RelativePanel>
+            </Border>
             <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[3].text, Mode=OneWay}" /></Border>
-            <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="Black" >
-                <TextBlock  Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[3].value, Mode=OneWay}" HorizontalAlignment="Right" /></Border>
+                <RelativePanel>
+                    <TextBlock RelativePanel.AlignLeftWithPanel="true" RelativePanel.LeftOf="Value3" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[3].text, Mode=OneWay}" />
+                    <TextBlock RelativePanel.AlignRightWithPanel="True" x:Name="Value3" Margin ="5,0,5,0" VerticalAlignment="Center"  Text="{x:Bind CViewModel.ChartTiles[3].value, Mode=OneWay}"  />
+                </RelativePanel>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>
