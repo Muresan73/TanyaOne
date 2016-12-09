@@ -114,17 +114,19 @@
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="model:Sensor">
                         <Button  Margin="10,10,10,10" Background="White" Click="ButtonBase_OnClick">
-                            <StackPanel Width="250" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <Grid  Margin="0,0,0,5">
+                            <RelativePanel Width="250" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <!--<Grid  Margin="0,0,0,5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Source="{x:Bind AssetUri}" Width="40" Height="40" UseLayoutRounding="True"/>
-                                    <TextBlock Grid.Column="1" Text="{x:Bind DisplayNameToShow}" Foreground="{x:Bind design.color}" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5,5,0"/>
-                                </Grid>
-                                <TextBlock Text="{x:Bind displayName}"/>
-                            </StackPanel>
+                                    </Grid.ColumnDefinitions>-->
+                                <Image x:Name="Icon" Source="{x:Bind AssetUri}" Width="40" Height="50" UseLayoutRounding="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Margin="0,5"/>
+                                <Viewbox  RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWith="Icon" RelativePanel.AlignRightWithPanel="True" RelativePanel.RightOf="Icon" >
+                                    <TextBlock Text="{x:Bind DisplayNameToShow}" Foreground="{x:Bind design.color}" />
+                                </Viewbox>
+                                <!--</Grid>-->
+                                <TextBlock Text="{x:Bind displayName}" RelativePanel.AlignBottomWithPanel="True" Margin="0,5"/>
+                            </RelativePanel>
                         </Button>
                     </DataTemplate>
                 </GridView.ItemTemplate>
